@@ -26,14 +26,16 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file app/pom.xml
+      working-directory: .
+
       
     - name: Veracode Upload and Scan
       uses: veracode/veracode-uploadandscan-action@0.2.7
       with:
         appname: 'Verademo SAQPSAQP'
         createprofile: true
-        filepath: 'target/verademo.war'
+        filepath: 'app/target/verademo.war'
         vid: '${{ vars.VERACODE_API_ID }}'
         vkey: '${{ vars.VERACODE_API_KEY }}'
         scanpollinginterval: 30
